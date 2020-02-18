@@ -1,0 +1,19 @@
+{
+	"packages": [
+		"samba",
+		"python3-module-samba",
+		"gpupdate",
+		"winbind",
+		"sssd",
+		"krb5-kdc",
+		"sssd-dbus",
+		"alterator-auth"
+	],
+	"files_present": [
+		"/usr/sbin/smbd"
+	],
+	"services_started": [
+		"smbd.service"
+	]
+}
+

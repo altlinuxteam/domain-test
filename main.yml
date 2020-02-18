@@ -1,0 +1,18 @@
+---
+
+- hosts: localhost
+  tasks:
+  - name: Package domain diagnostic utilities
+    archive:
+      path: ./util
+      dest: ./util.tar
+      format: tar
+
+- hosts: dc
+  roles:
+  - dc-test
+
+- hosts: cl
+  roles:
+  - cl-test
+

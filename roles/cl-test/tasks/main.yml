@@ -1,0 +1,4 @@
+---
+
+- name: Run domain client diagnostic utility
+  command:

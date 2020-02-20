@@ -30,13 +30,18 @@ class Diag:
         self.check_files()
         self.check_systemd()
         self.check_samba()
+        self.check_ports()
 
     def check_packages(self):
         mod_rpm = try_import('rpm')
         if mod_rpm:
-            from diag.checker.rpm import is_rpm_installed
+            from diag.checker.rpm import (
+                is_rpm_installed,
+                rpm_files_correct
+            )
             for pkg in self.config['packages']:
-                is_rpm_installed(pkg)
+                if is_rpm_installed(pkg):
+                    rpm_files_correct(pkg)
 
     def check_files(self):
         from diag.checker.files import file_present
@@ -52,6 +57,17 @@ class Diag:
         mod_samba = try_import('samba')
         if mod_samba:
             import diag.checker.samba
+
+    def check_ports(self):
+        from diag.checker.network import is_port_opened
+        for port_struct in self.config['localhost_ports_opened']:
+            descr = port_struct['description']
+            port = port_struct['port']
+
+            if is_port_opened(port):
+                print('{} port ({}) is opened'.format(descr, port))
+            else:
+                print('{} port ({}) is closed'.format(descr, port))
 
 
 def main():

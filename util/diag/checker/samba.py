@@ -16,3 +16,32 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+
+import optparse
+import subprocess
+from samba import getopt as options
+
+class SambaCreds:
+    def __init__(self):
+        self.parser = optparse.OptionParser('Samba config checker')
+        self.sambaopts = options.SambaOptions(self.parser)
+        self.credopts = options.CredentialsOptions(self.parser)
+        self.lp = self.sambaopts.get_loadparm()
+        self.creds = self.credopts.get_credentials(self.lp, fallback_machine=True)
+
+def smb_check_config(screds):
+    result = subprocess.call(['/usr/bin/testparm', '-s'])
+
+    if result == 0:
+        return True
+
+    return False
+
+def smb_is_dc(screds):
+    servrole = str(screds.lp.server_role())
+
+    if (servrole == 'ROLE_STANDALONE') or (servrole == 'ROLE_ACTIVE_DIRECTORY_DC'):
+        return True
+
+    return False
+

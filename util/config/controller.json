@@ -10,10 +10,39 @@
 		"alterator-auth"
 	],
 	"files_present": [
-		"/usr/sbin/smbd"
+		"/usr/sbin/smbd",
+		"/etc/samba/smb.conf"
 	],
 	"services_started": [
 		"smbd.service"
+	],
+	"localhost_ports_opened": [
+		{"port": 20,    "description": "FTP default"},
+		{"port": 21,    "description": "FTP"},
+		{"port": 42,    "description": "WINS replication"},
+		{"port": 53,    "description": "DNS"},
+		{"port": 67,    "description": "DHCP server"},
+		{"port": 88,    "description": "Kerberos 5"},
+		{"port": 123,   "description": "NTP"},
+		{"port": 135,   "description": "RPC endpoint mapper"},
+		{"port": 137,   "description": "NetBIOS name service"},
+		{"port": 138,   "description": "NetBIOS datagram service"},
+		{"port": 139,   "description": "NetBIOS session service"},
+		{"port": 389,   "description": "LDAP"},
+		{"port": 445,   "description": "SMB over IP (Microsoft DS)"},
+		{"port": 464,   "description": "Kerberos 5 password"},
+		{"port": 500,   "description": "IPSec ISAKMP"},
+		{"port": 636,   "description": "LDAP/SSL"},
+		{"port": 647,   "description": "DHCP refusal"},
+		{"port": 1512,  "description": "WINS resolution"},
+		{"port": 2535,  "description": "MADCAP"},
+		{"port": 3268,  "description": "Global catalog LDAP"},
+		{"port": 3269,  "description": "Global catalog LDAP over SSL"},
+		{"port": 3343,  "description": "Clustering service"},
+		{"port": 4500,  "description": "NAT-T"},
+		{"port": 5722,  "description": "DFS-R"},
+		{"port": 9389,  "description": "Active Directory Web Services/Management Gateway (ADWS)"},
+		{"port": 42424, "description": "ASP.NET state service"}
 	]
 }
 

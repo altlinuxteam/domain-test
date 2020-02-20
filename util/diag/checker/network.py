@@ -16,24 +16,23 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from pathlib import Path
 
-def file_present(file_name):
-    file_path = Path(file_name)
-    if file_path.exists():
-        print('Path {} exists'.format(file_path.resolve()), end='')
-        if file_path.is_file():
-            print(' and is a regular file')
-            return True
-        if file_path.is_symlink():
-            print(' and is a symbolic link')
-            return True
-        print(' and is not a regular file nor symlink')
-    else:
-        print('Path {} does not exist'.format(file_path.resolve()))
+import socket
+
+
+def is_port_opened(port_num):
+    '''
+    Check if port is opened on loopback
+
+    :param port_num: Port number to check on 127.0.0.1
+    :return: True if port is opened and False otherwise
+    '''
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    result = sock.connect_ex(('127.0.0.1', port_num))
+    sock.close()
+
+    if result == 0:
+        return True
 
     return False
-
-def directory_present():
-    pass
 

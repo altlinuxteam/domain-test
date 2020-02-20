@@ -1,5 +1,5 @@
 #
-# samba-itest - Samba integration testing utility
+# samba-itest - Samba integration testing utilit
 #
 # Copyright (C) 2019-2020 BaseALT Ltd.
 #
@@ -24,6 +24,10 @@ import rpm
 def is_rpm_installed(rpm_name):
     '''
     Check if the package named 'rpm_name' is installed
+
+    :param rpm_name: - string representing RPM name
+
+    :return: True in case the package is installed and False otherwise
     '''
     ts = rpm.TransactionSet()
     pm = ts.dbMatch('name', rpm_name)
@@ -33,5 +37,23 @@ def is_rpm_installed(rpm_name):
         return True
 
     print('RPM is not installed: {}'.format(rpm_name))
+    return False
+
+def rpm_files_correct(rpm_name):
+    '''
+    Check if files belonging to RPM are not broken (have correct
+    checksums and no other changes)
+
+    :param rpm_name: - string representing RPM name
+
+    :return: True in case the package is installed and False otherwise
+    '''
+    result = subprocess.call(['/usr/bin/rpm', '-V', rpm_name])
+
+    if result == 0:
+        print('RPM {} files are correct'.format(rpm_name))
+        return True
+
+    print('RPM {} files have changes'.format(rpm_name))
     return False
 

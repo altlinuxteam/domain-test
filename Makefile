@@ -1,10 +1,13 @@
-.PHONY: vagrantup test
+.PHONY: vagrantup destroy test
 
-all: vagrantup test
+test:
+	ansible-playbook -i hosts.ini main.yml
 
 vagrantup: Vagrantfile
 	vagrant up
 
-test:
-	ansible-playbook -i hosts.ini main.yml
+destroy:
+	vagrant destroy -f
+
+all: vagrantup test
 

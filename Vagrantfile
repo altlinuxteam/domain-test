@@ -17,6 +17,7 @@ Vagrant.configure("2") do |config|
       dc.vm.synced_folder ".", "/vagrant", disabled: true
       #dc.vm.box_download_checksum = "db0d0f26575bafd0bb4989dc00d85539e0fd9272c943b373ebbb6d978a3c15ee"
       #dc.vm.box_download_checksum_type = "sha256"
+      dc.vm.post_up_message = "Domain controller dc#{n} was successfully started"
     end
   end
 
@@ -27,6 +28,7 @@ Vagrant.configure("2") do |config|
       #cl.vm.box_version = "1.0.0"
       cl.vm.box_url = "file://./results/vbox-alt-workstation-9-x86_64.box"
       cl.vm.synced_folder ".", "/vagrant", disabled: true
+      cl.vm.post_up_message = "Domain client cl#{n} was successfully started"
     end
   end
 end

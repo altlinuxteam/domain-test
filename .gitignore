@@ -1,1 +1,6 @@
 __pycache__
+*.tar
+.vagrant
+.tmp
+*.retry
+

@@ -1,0 +1,13 @@
+---
+
+packages:
+  - bind-utils
+  - krb5-kinit
+  - ldb-tools
+  - samba-dc
+  - samba-dc-client
+  - sshpass
+  - samba-client
+  - sssd-ad
+  - task-auth-ad-sssd
+

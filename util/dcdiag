@@ -20,10 +20,12 @@
 
 from diag.config import read_config
 from diag.import_wrapper import try_import
+from diag.report.report import Report
 
 class Diag:
     def __init__(self):
         self.config = read_config('config/controller.json')
+        self.report = Report('dcdiag.xml')
 
     def run(self):
         self.check_packages()
@@ -31,6 +33,8 @@ class Diag:
         self.check_systemd()
         self.check_samba()
         self.check_ports()
+
+        self.report.dump()
 
     def check_packages(self):
         mod_rpm = try_import('rpm')
@@ -41,12 +45,12 @@ class Diag:
             )
             for pkg in self.config['packages']:
                 if is_rpm_installed(pkg):
-                    rpm_files_correct(pkg)
+                    self.report.add('package', pkg, rpm_files_correct(pkg))
 
     def check_files(self):
         from diag.checker.files import file_present
         for fpath in self.config['files_present']:
-            file_present(fpath)
+            self.report.add('file', fpath, file_present(fpath))
 
     def check_systemd(self):
         mod_dbus = try_import('dbus')
@@ -65,8 +69,10 @@ class Diag:
             port = port_struct['port']
 
             if is_port_opened(port):
+                self.report.add('port', '{} port ({}) is opened'.format(descr, port), 'true')
                 print('{} port ({}) is opened'.format(descr, port))
             else:
+                self.report.add('port', '{} port ({}) is opened'.format(descr, port), 'false')
                 print('{} port ({}) is closed'.format(descr, port))
 
 

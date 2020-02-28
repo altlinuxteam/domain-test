@@ -1,5 +1,10 @@
-.PHONY: all
+.PHONY: vagrantup test
 
-all:
+all: vagrantup test
+
+vagrantup: Vagrantfile
+	vagrant up
+
+test:
 	ansible-playbook -i hosts.ini main.yml
 

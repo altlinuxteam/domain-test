@@ -1,0 +1,15 @@
+---
+
+- name: Add gpupdate repository
+  command: apt-repo add 241549
+  become: true
+
+- name: Update package database
+  command: apt-get -y update
+  become: true
+
+- name: Install gpupdate and related packages
+  command: 'apt-get -y install {{ item }}'
+  loop: '{{ packages }}'
+  become: true
+

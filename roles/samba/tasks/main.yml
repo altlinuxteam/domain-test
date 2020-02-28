@@ -1,0 +1,19 @@
+---
+
+- name: Update package database
+  command: apt-get update
+  become: true
+
+- name: Update APT and RPM
+  command: apt-get -y install rpm apt
+  become: true
+
+- name: Update packages
+  command: apt-get -y dist-upgrade
+  become: true
+
+- name: Install Samba packages
+  command: 'apt-get -y install {{ item }}'
+  loop: '{{ packages }}'
+  become: true
+

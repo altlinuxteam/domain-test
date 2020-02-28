@@ -1,0 +1,21 @@
+---
+
+- name: Set hostname to the one specified in inventory
+  command: '{{ item }}'
+  loop:
+  - 'hostname -s {{ inventory_hostname }}'
+  - 'hostnamectl set-hostname {{ inventory_hostname }}'
+  become: true
+
+- name: Add AD domain controller hostname to /etc/hosts
+  lineinfile:
+    path: '/etc/hosts'
+    state: present
+    line: '10.64.6.10 dc0.{{ samba_realm | lower }} dc0'
+  become: true
+
+#- name: Reboot the machine in order changes to take place
+#  reboot:
+#    reboot_timeout: 1200
+#  become: true
+

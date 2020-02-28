@@ -2,17 +2,18 @@
 
 - hosts: localhost
   tasks:
-  - name: Package domain diagnostic utilities
-    archive:
-      path: ./util
-      dest: ./util.tar
-      format: tar
+  - name: Package domain testing utilities for later provisioning
+    include_tasks: ./tasks/local.yml
 
 - hosts: dc
   roles:
+  #- prepare-machine
+  #- samba-server
   - dc-test
 
 - hosts: cl
   roles:
+  #- prepare-machine
+  #- samba-client
   - cl-test
 

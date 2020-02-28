@@ -1,0 +1,5 @@
+---
+
+dependencies:
+  - role: gpupdate
+  - role: samba

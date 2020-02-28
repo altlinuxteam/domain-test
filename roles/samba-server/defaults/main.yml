@@ -1,0 +1,8 @@
+---
+
+admin_name: Administrator
+admin_pass: peebieY4
+
+samba_domain: test
+samba_realm: '{{ samba_domain }}.alt'
+

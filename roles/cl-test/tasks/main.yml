@@ -1,4 +1,17 @@
 ---
 
+- name: Unpack domain client diagnostic utility
+  unarchive:
+    src: '{{ playbook_dir }}/util.tar'
+    dest: ./
+
 - name: Run domain client diagnostic utility
-  command:
+  command: ./cldiag
+  args:
+    chdir: ./util
+
+#- name: Get the output of diagnostic utility
+#  fetch:
+#    src: ./util/cldiag.xml
+#    dest: cldiag.xml
+

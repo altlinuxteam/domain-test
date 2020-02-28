@@ -1,5 +1,18 @@
 ---
 
-- name: Run domain diagnostic utility
-  command:
+- name: Unpack domain controller diagnostic utility
+  unarchive:
+    src: '{{ playbook_dir }}/util.tar'
+    dest: ./
+
+- name: Run domain controller diagnostic utility
+  command: ./dcdiag
+  args:
+    chdir: ./util/
+
+- name: Get the output of diagnostic utility
+  fetch:
+    src: ./util/dcdiag.xml
+    dest: '{{ playbook_dir }}/diag/{{ inventory_hostname }}-diag.xml'
+    flat: true
 

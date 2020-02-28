@@ -1,0 +1,17 @@
+---
+
+- name: Remove previously built archive
+  file:
+    path: '{{ playbook_dir }}/util.tar'
+    state: absent
+
+- name: Package domain diagnostic utilities
+  archive:
+    path: '{{ playbook_dir }}/util'
+    dest: '{{ playbook_dir }}/util.tar'
+    format: tar
+
+- name: Create diagnostic utility output directory
+  file:
+    path: '{{ playbook_dir }}/diag'
+

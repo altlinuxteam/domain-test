@@ -14,4 +14,5 @@
 - name: Create diagnostic utility output directory
   file:
     path: '{{ playbook_dir }}/diag'
+    state: directory
 

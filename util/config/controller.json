@@ -1,4 +1,5 @@
 {
+	"type": "controller",
 	"packages": [
 		"samba",
 		"python3-module-samba",

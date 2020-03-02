@@ -55,6 +55,13 @@
     dest: /etc/openldap/ldap.conf
   become: true
 
+- name: Stop BIND9 on port 53 because now Samba is our DNS
+  service:
+    name: bind
+    enabled: false
+    state: stopped
+  become: true
+
 - name: Deploy Samba Domain Controller
   command: "samba-tool domain provision --realm={{samba_realm|upper}} --domain={{samba_domain|upper}} --adminpass='{{ admin_pass }}' --dns-backend=SAMBA_INTERNAL --server-role=dc --use-rfc2307 --host-ip={{ ansible_host }}"
   become: true

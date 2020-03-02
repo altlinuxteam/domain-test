@@ -24,7 +24,12 @@ from .report.report import Report
 class Diag:
     def __init__(self, diag_config, report):
         self.config = read_config(diag_config)
-        self.report = Report(report)
+
+        self.type = 'controller'
+        if 'type' in self.config:
+            self.type = self.config['type']
+
+        self.report = Report(report, self.type)
 
     def run(self):
         self.check_packages()

@@ -22,9 +22,13 @@ from xml.etree import ElementTree as ET
 from xml.dom import minidom
 
 class Report:
-    def __init__(self, report_file):
+    def __init__(self, report_file, machine_type):
       self.report_file = report_file
+      self.type = machine_type
       self.report = ET.Element('report')
+
+      mtype = ET.SubElement(self.report, 'type')
+      mtype.text = self.type
 
     def add(self, test_id, description, result):
       elem = ET.SubElement(self.report, test_id)

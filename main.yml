@@ -7,13 +7,20 @@
 
 - hosts: dc
   roles:
-  #- prepare-machine
-  #- samba-server
+  - prepare-machine
+  - samba-server
   - dc-test
 
 - hosts: cl
   roles:
-  #- prepare-machine
-  #- samba-client
+  - prepare-machine
+  - samba-client
   - cl-test
+
+- hosts: localhost
+  tasks:
+  - name: Analyze domain testing results
+    command: "./diaganal '{{ playbook_dir }}/diag'"
+    args:
+      chdir: '{{ playbook_dir }}/util'
 

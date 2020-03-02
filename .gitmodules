@@ -1,0 +1,3 @@
+[submodule "alt-packer"]
+	path = alt-packer
+	url = git@github.com:altlinuxteam/alt-packer.git

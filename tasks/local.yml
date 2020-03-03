@@ -5,6 +5,11 @@
     path: '{{ playbook_dir }}/util.tar'
     state: absent
 
+- name: Remove directory with previous testing/diagnostics results
+  file:
+    path: '{{ playbook_dir }}/diag'
+    state: absent
+
 - name: Package domain diagnostic utilities
   archive:
     path: '{{ playbook_dir }}/util'
